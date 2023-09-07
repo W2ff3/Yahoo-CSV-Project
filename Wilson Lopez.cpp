@@ -117,8 +117,8 @@ void PercentChange(contents& csvFile, unsigned int t_days)
 void SortValues(contents& csvFile)
 {
 	bool swap;
-	std::string t1;
-	float temp, t2, t3;
+	std::string date_temp;
+	float pc_temp, open_temp, adj_temp;
 	int size_minus_one = (int(csvFile.percent_change.size()) - 1);	// For traversing the vector inside the csvFile data structure.
 
 	do
@@ -130,25 +130,25 @@ void SortValues(contents& csvFile)
 			if (csvFile.percent_change[count] < csvFile.percent_change[count + 1])
 			{
 				// Sorts the Percent Change values that are inside the struct.
-				temp = csvFile.percent_change[count];
+				pc_temp = csvFile.percent_change[count];
 				csvFile.percent_change[count] = csvFile.percent_change[count + 1];
-				csvFile.percent_change[count + 1] = temp;
+				csvFile.percent_change[count + 1] = pc_temp;
 				swap = true;
 
 				// Sorts the Dates inside the data structure, according to the Percent Change order.
-				t1 = csvFile.date[count];
+				date_temp = csvFile.date[count];
 				csvFile.date[count] = csvFile.date[count + 1];
-				csvFile.date[count + 1] = t1;
+				csvFile.date[count + 1] = date_temp;
 
 				// Sorts the Open values that are inside the struct, according to the Percent Change order.
-				t2 = csvFile.open[count];
+				open_temp = csvFile.open[count];
 				csvFile.open[count] = csvFile.open[count + 1];
-				csvFile.open[count + 1] = t2;
+				csvFile.open[count + 1] = open_temp;
 
 				// Sorts the Adj. Close values that are inside the struct, according to the Percent Change order.
-				t3 = csvFile.adj[count];
+				adj_temp = csvFile.adj[count];
 				csvFile.adj[count] = csvFile.adj[count + 1];
-				csvFile.adj[count + 1] = t3;
+				csvFile.adj[count + 1] = adj_temp;
 			}
 		}
 	} while (swap);
