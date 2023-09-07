@@ -115,7 +115,7 @@ void PercentChange(contents& csvFile, unsigned int t_days)
 }
 
 // This function sorts the percent change values, as well as the dates, open and adj values.
-void SortPercentChange(contents& csvFile)
+void SortValues(contents& csvFile)
 {
 	bool swap;
 	std::string t1;
@@ -185,7 +185,7 @@ int main()
 	std::cout << std::endl << "Date" << "\t \t" << "Open" << "\t \t" << "A.Close" << " \t" << "Percent Change" << std::endl;
 
 	PercentChange(csvFile, trading_days);
-	SortPercentChange(csvFile);
+	SortValues(csvFile);
 
 	// Outputs the the date, open, adj, and percent change values from descending order, based on the number the user entered.
 	for (int i = 0; i < user_input; i++)
