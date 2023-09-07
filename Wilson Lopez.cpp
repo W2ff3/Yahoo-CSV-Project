@@ -18,39 +18,38 @@
 #include <vector>
 #include <string>
 #include <windows.h>
-using namespace std;
 
 struct contents
 {
-	string name;
-	vector <string> date;
-	vector<float> open, high, low, close, adj, percent_change;
-	vector<int> volume;
+	std::string name;
+	std::vector <std::string> date;
+	std::vector<float> open, high, low, close, adj, percent_change;
+	std::vector<int> volume;
 };
 
 // Finds the filename of the .csv file.
-void Compute_1_Filename(string& filename)
+void Compute_1_Filename(std::string& filename)
 {
 	// Stores the name of the file with the .csv extension in the filename parameter
 	// Make sure that the .csv file is in the same directory as the main .cpp file when you are making this project.
 
 	WIN32_FIND_DATAA findfiledata;
 	HANDLE hfind;
-	string file_extension = "*.csv";
+	std::string file_extension = "*.csv";
 
-	string directory_file_ext = file_extension;
+	std::string directory_file_ext = file_extension;
 	hfind = FindFirstFileA(directory_file_ext.c_str(), &findfiledata);
 
 	if (hfind != INVALID_HANDLE_VALUE)
 		filename = findfiledata.cFileName;
 	else
-		cout << "No file was present" << endl;
+		std::cout << "No file was present" << std::endl;
 }
 
 // Stores the contents of the file inside a data structure.
-void StoreContents(contents& csvFile, string f, unsigned int& trading_days)
+void StoreContents(contents& csvFile, std::string f, unsigned int& trading_days)
 {
-	ifstream c;
+	std::ifstream c;
 	c.open(f);
 	
 	if (!c.is_open())
@@ -60,8 +59,8 @@ void StoreContents(contents& csvFile, string f, unsigned int& trading_days)
 	
 	if (c.is_open())
 	{
-		string first_line;
-		string temp1, temp2, temp3, temp4, temp5, temp6, temp7;
+		std::string first_line;
+		std::string temp1, temp2, temp3, temp4, temp5, temp6, temp7;
 		getline(c, first_line, '\n'); // "first_line" reads the first line in the .csv file.
 
 		// A while loop that repeats if c is not at the end of the file.
@@ -119,7 +118,7 @@ void PercentChange(contents& csvFile, unsigned int t_days)
 void SortPercentChange(contents& csvFile)
 {
 	bool swap;
-	string t1;
+	std::string t1;
 	float temp, t2, t3;
 	int size_minus_one = (csvFile.percent_change.size() - 1);	// The size of the vector is subtracted by 1.
 
@@ -155,7 +154,7 @@ void SortPercentChange(contents& csvFile)
 int main()
 {
 	contents csvFile;
-	string filename, ticker_name;
+	std::string filename, ticker_name;
 	unsigned int ticker_length, trading_days = 0, user_input;
 
 	Compute_1_Filename(filename);
@@ -166,31 +165,31 @@ int main()
 	
 	trading_days--;	// Substracts a number from the trading days, as one of the rows inside the file are the column titles.
 
-	cout << "This program will analyze " << ticker_name;	// Outputs the name of the ticker to the console screen.
+	std::cout << "This program will analyze " << ticker_name;	// Outputs the name of the ticker to the console screen.
 
-	cout << " from " << csvFile.date.front() << " to " << csvFile.date.back() << endl;	// Outputs the start and end date that was found in the file.
+	std::cout << " from " << csvFile.date.front() << " to " << csvFile.date.back() << std::endl;	// Outputs the start and end date that was found in the file.
 
-	cout << "There are " << trading_days << " trading day(s) in this file." << endl;	// Outputs how many trading day(s) exist in the file.
+	std::cout << "There are " << trading_days << " trading day(s) in this file." << std::endl;	// Outputs how many trading day(s) exist in the file.
 	
 	// Input the number of records from the console screen.
-	cout << "Enter the number of increase records you want to find: ";
-	cin >> user_input;
+	std::cout << "Enter the number of increase records you want to find: ";
+	std::cin >> user_input;
 	while (user_input > trading_days || user_input < 0)
 	{
-		cout << endl << "The file does not contain enough trading days." << endl;
-		cout << "There are only " << trading_days << " trading days." << endl;
-		cout << "Enter the number of increase record you want to find: ";
-		cin >> user_input;
+		std::cout << std::endl << "The file does not contain enough trading days." << std::endl;
+		std::cout << "There are only " << trading_days << " trading days." << std::endl;
+		std::cout << "Enter the number of increase record you want to find: ";
+		std::cin >> user_input;
 	}
 
-	cout << endl << "Date" << "\t \t" << "Open" << "\t \t" << "A.Close" << " \t" << "Percent Change" << endl;
+	std::cout << std::endl << "Date" << "\t \t" << "Open" << "\t \t" << "A.Close" << " \t" << "Percent Change" << std::endl;
 
 	PercentChange(csvFile, trading_days);
 	SortPercentChange(csvFile);
 
 	// Outputs the the date, open, adj, and percent change values from descending order, based on the number the user entered.
 	for (int i = 0; i < user_input; i++)
-		cout << fixed << csvFile.date.at(i) << '\t' << csvFile.open.at(i) << '\t' << csvFile.adj.at(i) << '\t' << csvFile.percent_change[i] << endl;
+		std::cout << std::fixed << csvFile.date.at(i) << '\t' << csvFile.open.at(i) << '\t' << csvFile.adj.at(i) << '\t' << csvFile.percent_change[i] << std::endl;
 
 	return 0;
 }
