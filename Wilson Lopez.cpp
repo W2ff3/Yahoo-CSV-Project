@@ -107,10 +107,7 @@ void StoreContents(contents& csvFile, std::string f, unsigned int& trading_days)
 void PercentChange(contents& csvFile, unsigned int t_days)
 {
 	for (unsigned int i = 0; i < t_days; i++)
-	{
-		csvFile.percent_change.push_back(float(i));
-		csvFile.percent_change[i] = (csvFile.adj[i] - csvFile.open[i]) / csvFile.open[i] * 100;
-	}
+		csvFile.percent_change.push_back((csvFile.adj[i] - csvFile.open[i]) / csvFile.open[i] * 100);
 }
 
 // This function sorts the percent change, date, open and adj values in descending order (based on the percent change order).
