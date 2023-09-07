@@ -158,14 +158,15 @@ int main()
 	unsigned int ticker_length, trading_days = 0, user_input;
 
 	Compute_1_Filename(filename);
-	ticker_length = filename.length() - 4; // 4 is the length of ".csv"
-	ticker_name = filename.substr(0, ticker_length);
+
+	//ticker_length = filename.length() - 4; // 4 is the length of ".csv"
+	//ticker_name = filename.substr(0, ticker_length);
 	
 	StoreContents(csvFile, filename, trading_days);
 	
 	trading_days--;	// Substracts a number from the trading days, as one of the rows inside the file are the column titles.
 
-	std::cout << "This program will analyze " << ticker_name;	// Outputs the name of the ticker to the console screen.
+	std::cout << "This program will analyze \"" << filename << "\"";	// Outputs the name of the ticker to the console screen.
 
 	std::cout << " from " << csvFile.date.front() << " to " << csvFile.date.back() << std::endl;	// Outputs the start and end date that was found in the file.
 
