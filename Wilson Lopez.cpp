@@ -197,7 +197,7 @@ int main()
 	SortValues(csvFile);
 
 	// Outputs the the date, open, adj, and percent change values from descending order, based on the number the user entered.
-	for (int i = 0; i < user_input; i++)
+	for (unsigned int i = 0; i < user_input; i++)
 		std::cout << std::fixed << csvFile.date.at(i) << '\t' << csvFile.open.at(i) << '\t' << csvFile.adj.at(i) << '\t' << csvFile.percent_change[i] << std::endl;
 
 	return 0;
