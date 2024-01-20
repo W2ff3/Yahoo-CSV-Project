@@ -49,6 +49,7 @@ void Compute_1_Filename(std::string& filename)
 }
 
 // Stores the contents of the file inside a data structure.
+// Written by Cyril Harris.
 void StoreContents(contents& csvFile, std::string f, unsigned int& trading_days)
 {
 	std::ifstream c;
